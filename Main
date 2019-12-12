@@ -1,0 +1,100 @@
+import java.util.Scanner;
+
+
+public class BlackJack {
+  public static void main(String[] args) throws Exception {
+	Card[] Deck = new Card[52];  
+	int[] Cards = new int[52];
+	int PlayersScore;
+	int DealersScore;
+	int userAction = 0;
+	int CardsDealt = 3;
+	int PlayersAce = 0;
+	int DealersAce= 0; 
+	Scanner input = new Scanner(System.in);
+	
+	Shuffle(Cards);
+	
+	LoadDeck(Deck);
+	
+	System.out.println("Player's Cards: ");
+	System.out.println( Deck[Cards[0]].face);
+	System.out.println( Deck[Cards[2]].face);
+	PlayersScore = Deck[Cards[0]].value + Deck[Cards[2]].value;
+	System.out.println("The player's score is " + PlayersScore);
+	if (PlayersScore== 21) {
+		System.out.println("You win!");
+		return;
+	}
+	//Aces
+	if (Deck[Cards[0]].value == 11) {
+	PlayersAce=1; 
+	}
+	if (Deck[Cards[2]].value == 11) {
+		PlayersAce = 1;
+	}
+	PlayersScore = Deck[Cards[0]].value + Deck[Cards[2]].value;
+		if (PlayersScore == 22) {
+			PlayersScore = 12;
+		}
+		
+	
+	System.out.println("\nDealer's Cards:");
+	System.out.println( Deck[ Cards[1]].face);
+	System.out.println( Deck[ Cards[3]].face);
+	DealersScore = Deck[Cards[1]].value + Deck[Cards[3]].value;
+	System.out.println("The Dealer's score is " + DealersScore);
+	if(DealersScore==21) {
+		System.out.println("Dealer wins.");
+		return;
+	}
+	//Aces
+	if (Deck[Cards[1]].value == 11) {
+	DealersAce=1; 
+	}
+	if (Deck[Cards[3]].value == 11) {
+		DealersAce = 1;
+	}
+	DealersScore = Deck[Cards[1]].value + Deck[Cards[3]].value;
+		if (DealersScore == 22) {
+			DealersScore = 12;
+		}
+    
+	//Ask the player to hit or stay.
+	
+	while (PlayersScore < 21 && userAction != 2)
+	{
+		System.out.println("\n" + "Enter 1 to hit or enter 2 to stay. ");
+		  userAction = input.nextInt();
+		 
+		 if (userAction == 1) {
+			CardsDealt++; 
+			PlayersScore = PlayersScore + Deck[Cards[CardsDealt]].value;
+			System.out.println("You drew a " + Deck[Cards[CardsDealt]].face);
+		if (Deck[Cards[CardsDealt]].value == 11 && PlayersScore > 21) {
+		PlayersScore = PlayersScore - 10;
+		
+		}
+		System.out.println("The player's new score is " + PlayersScore );
+		
+		 }
+	
+		
+		
+		 
+	
+
+		if (PlayersScore > 21) {
+			System.out.println ("You bust.");
+			return;
+		}
+		if (PlayersScore == 21) {
+			System.out.println("You win!");
+			return;
+		}
+
+	
+		
+	
+	
+	}
